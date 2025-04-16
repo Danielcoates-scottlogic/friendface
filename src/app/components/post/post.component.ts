@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as postData from '../../../assets/posts.json';
 
 @Component({
   selector: 'app-post',
@@ -8,15 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './post.component.css'
 })
 export class PostComponent {
-  examplePost = {
-    id: 1,
-    author: "FriendFace User",
-    date: "01/10/2019",
-    content:
-      "Today I started using FriendFace! It's the best social media site I've ever used.",
-    likes: 0,
-    colour: "red",
-    checked: false,
-  };
-  posts = [this.examplePost];
+
+  posts = postData.posts;
+
 }

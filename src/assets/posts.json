@@ -1,0 +1,24 @@
+{"posts": [
+    {
+        "id": 1,
+        "author": "FriendFace User",
+        "date": "01/10/2019",
+        "content":
+          "Today I started using FriendFace! It's the best social media site I've ever used.",
+        "likes": 0,
+        "colour": "red",
+        "checked": false
+    },
+    {
+        "id": 2,
+        "author": "Dan",
+        "date": "01/10/2020",
+        "content":
+          "Today I started using Friender used.",
+        "likes": 0,
+        "colour": "blue",
+        "checked": false
+    }
+]
+
+}

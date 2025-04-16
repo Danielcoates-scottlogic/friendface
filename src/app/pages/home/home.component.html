@@ -2,36 +2,92 @@
 <p>The best social media</p>
 
 <div id="form-area">
-    <form id="add-post">
-      Author:
-      <input id="author-field" type="text" />
-      Colour:
-      <select id="colour-field">
-        <option value="red" selected="selected">Red</option>
-        <option value="green">Green</option>
-        <option value="blue">Blue</option>
-      </select>
-      Date:
-      <input id="date-field" type="date" />
-      <br />
-      Content:
-      <br />
-      <textarea rows="4" cols="100" id="content-field" class="post-entry"></textarea>
-      <br />
-      <input id="add-post-submit" type="submit" />
-    </form>
-  </div>
+  <form #addPost="ngForm" (ngSubmit)="onClickSubmit(addPost.value)">
+    <!-- Author -->
+    Author:
+    <input
+      id="author-field"
+      type="text"
+      name="author"
+      ngModel
+      required
+      #author="ngModel"
+    />
+    <div *ngIf="author.invalid && author.touched" class="error">
+      Author is required.
+    </div>
 
-  <div id="errorMessage"></div>
-
-  <hr />
-  <form id="order-posts">
-    <label for="options">Sort by:</label>
-    <select id="options">
-      <option value="date">Date</option>
-      <option value="name">Name</option>
+    <!-- Colour -->
+    Colour:
+    <select
+      id="colour-field"
+      name="colour"
+      ngModel
+      required
+      #colour="ngModel"
+    >
+      <option value="">-- Select a colour --</option>
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="blue">Blue</option>
     </select>
-    <label for="decending">Decending</label>
-    <input type="checkbox" id="descending">
+    <div *ngIf="colour.invalid && colour.touched" class="error">
+      Colour is required.
+    </div>
+
+    <!-- Date -->
+    Date:
+    <input
+      id="date-field"
+      type="date"
+      name="date"
+      ngModel
+      required
+      #date="ngModel"
+    />
+    <div *ngIf="date.invalid && date.touched" class="error">
+      Date is required.
+    </div>
+
+    <br />
+
+    <!-- Content -->
+    Content:
+    <br />
+    <textarea
+      rows="4"
+      cols="100"
+      id="content-field"
+      class="post-entry"
+      name="post"
+      ngModel
+      required
+      #post="ngModel"
+    ></textarea>
+    <div *ngIf="post.invalid && post.touched" class="error">
+      Content is required.
+    </div>
+
+    <br />
+    <input
+      id="add-post-submit"
+      type="submit"
+      value="submit"
+      [disabled]="addPost.invalid"
+    />
   </form>
-<app-post />
+</div>
+
+<!-- Sort form -->
+<hr />
+<form id="order-posts">
+  <label for="options">Sort by:</label>
+  <select id="options">
+    <option value="date">Date</option>
+    <option value="name">Name</option>
+  </select>
+  <label for="descending">Descending</label>
+  <input type="checkbox" id="descending" />
+</form>
+
+<app-post></app-post>
