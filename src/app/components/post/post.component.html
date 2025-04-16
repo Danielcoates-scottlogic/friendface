@@ -5,22 +5,25 @@
     <option value="name">Name</option>
   </select>
   <label for="descending">Descending</label>
-  <input type="checkbox" id="descending" name="descending" ngModel/>
+  <input type="checkbox" id="descending" name="descending" ngModel />
 </form>
 <div id="posts">
-    <div *ngFor="let post of posts" class="post">
-        <div class="profile">
-            <div class="avatar">
-              <img src="person.png" width="50" height="50" style="background-color: {{post.colour}}; border-radius: 25px;"/>
-            </div>
-            <div class="info">
-              <h4>{{ post.author }}</h4>
-              <p class="date">{{ post.date }}</p>
-            </div>
-          </div>
-          <p class="content">{{ post.content }}</p>
-          <div class="actions">
-            <p class="likes">Likes {{ post.likes }}</p>
-          </div>
+  <div *ngFor="let post of posts" class="post">
+    <div class="profile">
+      <div class="avatar">
+        <img src="person.png" width="50" height="50" [ngStyle]="{
+                'background-color': post.colour,
+                'border-radius': '25px'
+              }" />
+      </div>
+      <div class="info">
+        <h4>{{ post.author }}</h4>
+        <p class="date">{{ post.date }}</p>
+      </div>
+    </div>
+    <p class="content">{{ post.content }}</p>
+    <div class="actions">
+      <p class="likes">Likes {{ post.likes }}</p>
     </div>
   </div>
+</div>
