@@ -1,9 +1,8 @@
-<h1>FriendFace</h1>
-<p>The best social media</p>
+
 
 <div id="form-area">
   <form #addPost="ngForm" (ngSubmit)="onClickSubmit(addPost.value)">
-    <!-- Author -->
+
     Author:
     <input
       id="author-field"
@@ -17,7 +16,6 @@
       Author is required.
     </div>
 
-    <!-- Colour -->
     Colour:
     <select
       id="colour-field"
@@ -35,7 +33,6 @@
       Colour is required.
     </div>
 
-    <!-- Date -->
     Date:
     <input
       id="date-field"
@@ -51,7 +48,6 @@
 
     <br />
 
-    <!-- Content -->
     Content:
     <br />
     <textarea
@@ -78,16 +74,8 @@
   </form>
 </div>
 
-<!-- Sort form -->
+
 <hr />
-<form id="order-posts">
-  <label for="options">Sort by:</label>
-  <select id="options">
-    <option value="date">Date</option>
-    <option value="name">Name</option>
-  </select>
-  <label for="descending">Descending</label>
-  <input type="checkbox" id="descending" />
-</form>
+
 
 <app-post></app-post>

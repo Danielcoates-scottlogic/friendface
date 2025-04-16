@@ -1,7 +1,40 @@
-a{
-    padding-right: 10px;
-}
-div{
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  
+    border: solid;
+    border-radius: 20px;
+    background-color: blue;
+    color: white;
+  
+    padding: 20px;
+    margin-bottom: 50px; /* Space below the header */
+  }
+  
+  .left {
+    flex: 1;
+  }
+  
+  .center {
+    flex: 1;
     display: flex;
     justify-content: center;
-}
+  }
+  
+  nav a {
+    
+    padding: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  nav a:hover{
+    color: gray;
+  }
+  
+  .main-content {
+    padding: 20px;
+  }
+  
