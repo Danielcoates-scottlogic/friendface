@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import * as postData from '../../assets/posts.json';
 import { GetPostsService } from '../../services/get-posts.service';
 import { HttpClientModule } from '@angular/common/http';
 
