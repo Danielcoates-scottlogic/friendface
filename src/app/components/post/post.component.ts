@@ -21,6 +21,7 @@ export class PostComponent implements OnInit{
     this.sortPosts();
   }
   sortPosts(){
+    console.log('here');
     let reversed = 1;
     if (this.descending === true) {
       reversed = -1;
