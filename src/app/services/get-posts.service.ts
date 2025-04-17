@@ -1,15 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GetPostsService {
-  private apiURL = "http://localhost:8080/getPosts";
-  constructor(private http: HttpClient) { }
+  private apiURL = 'http://localhost:8080/getPosts'; 
+  private postsSubject = new BehaviorSubject<any[]>([]); 
 
-  getPosts(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiURL);
+  constructor(private http: HttpClient) {}
+
+ 
+  get posts$(): Observable<any[]> {
+    return this.postsSubject.asObservable();
+  }
+
+  fetchPosts(): void {
+    this.http.get<any[]>(this.apiURL).subscribe(posts => {
+      this.postsSubject.next(posts); 
+    });
   }
 }
