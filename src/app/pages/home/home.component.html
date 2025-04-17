@@ -1,5 +1,3 @@
-
-
 <div id="form-area">
   <form #addPost="ngForm" (ngSubmit)="onClickSubmit(addPost.value)">
 
@@ -12,9 +10,6 @@
       required
       #author="ngModel"
     />
-    <div *ngIf="author.invalid && author.touched" class="error">
-      Author is required.
-    </div>
 
     Colour:
     <select
@@ -29,9 +24,6 @@
       <option value="green">Green</option>
       <option value="blue">Blue</option>
     </select>
-    <div *ngIf="colour.invalid && colour.touched" class="error">
-      Colour is required.
-    </div>
 
     Date:
     <input
@@ -42,9 +34,6 @@
       required
       #date="ngModel"
     />
-    <div *ngIf="date.invalid && date.touched" class="error">
-      Date is required.
-    </div>
 
     <br />
 
@@ -60,19 +49,43 @@
       required
       #post="ngModel"
     ></textarea>
-    <div *ngIf="post.invalid && post.touched" class="error">
-      Content is required.
-    </div>
 
     <br />
+
+    <!-- Submit button -->
     <input
       id="add-post-submit"
       type="submit"
       value="submit"
       [disabled]="addPost.invalid"
     />
+
+    <!-- Unified error box -->
+    <div
+    *ngIf="(author.touched || addPost.submitted) && author.invalid ||
+            (colour.touched || addPost.submitted) && colour.invalid ||
+            (date.touched || addPost.submitted) && date.invalid ||
+            (post.touched || addPost.submitted) && post.invalid"
+    class="error-box"
+  >
+    <ul>
+      <li *ngIf="(author.touched || addPost.submitted) && author.invalid">
+        Author is required.
+      </li>
+      <li *ngIf="(colour.touched || addPost.submitted) && colour.invalid">
+        Colour is required.
+      </li>
+      <li *ngIf="(date.touched || addPost.submitted) && date.invalid">
+        Date is required.
+      </li>
+      <li *ngIf="(post.touched || addPost.submitted) && post.invalid">
+        Content is required.
+      </li>
+    </ul>
+  </div>
   </form>
 </div>
+
 
 
 <hr />
