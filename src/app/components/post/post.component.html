@@ -23,7 +23,8 @@
     </div>
     <p class="content">{{ post.content }}</p>
     <div class="actions">
-      <p class="likes">Likes {{ post.likes }}</p>
+      <p class="likes" name="likes">Likes {{ post.likes }}</p>
+      <button><img src="like.png" width="20px" height="20px" (click)="like(post)"></button>
     </div>
   </div>
 </div>

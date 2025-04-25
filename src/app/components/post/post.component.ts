@@ -45,5 +45,14 @@ export class PostComponent implements OnInit{
     console.log(this.posts)
   }
 
+  like(post: any) {
+    let likes = Number(post.likes);
+    if (likes === 0){
+      post.likes = likes + 1;
+    }
+    else {
+      post.likes = likes - 1;
+    }
+  }
 
 }
