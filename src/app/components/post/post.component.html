@@ -1,3 +1,5 @@
+
+
 <form #orderPosts="ngForm" id="order-posts">
   <label for="options">Sort by:</label>
   <select id="options" name="orderBy" [(ngModel)]="filterBy"  (ngModelChange)="onFormChange()">
@@ -7,6 +9,11 @@
   <label for="descending">Descending</label>
   <input type="checkbox"  name="descending" [(ngModel)]="descending" (ngModelChange)="onFormChange()"/>
 </form>
+
+<div *ngIf="posts.length < 1">
+  <h1>No Posts</h1>
+</div>
+
 <div id="posts">
   <div *ngFor="let post of posts" class="post">
     <div class="profile">
