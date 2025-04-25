@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GetPostsService } from '../../services/get-posts.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Post } from '../../interfaces/post';
 
 
 @Component({
@@ -14,17 +15,14 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class PostComponent implements OnInit{
   @Input() descending: boolean = false;
-  @Input() filterBy: String = "date";
-  posts: any[] = [];
+  @Input() filterBy: string = "date";
+  posts: Post[] = [];
   onFormChange() {
     this.sortPosts();
   }
   sortPosts(){
-    console.log('here');
-    let reversed = 1;
-    if (this.descending === true) {
-      reversed = -1;
-    }
+    const reversed = this.descending?-1:1;
+
     if (this.filterBy === "name") {
       this.posts.sort((a, b) => 
         a.author.localeCompare(b.author) * reversed
@@ -34,18 +32,15 @@ export class PostComponent implements OnInit{
       this.posts.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf() *reversed);
     }
   }
-  constructor(private postService: GetPostsService){
-    console.log('PostService:', postService);
-  }
+  constructor(private postService: GetPostsService){}
   ngOnInit(): void {
     this.postService.posts$.subscribe((data => {
       this.posts=data;
     }))
     this.postService.fetchPosts();
-    console.log(this.posts)
   }
 
-  like(post: any) {
+  toggleLike(post: any) {
     let likes = Number(post.likes);
     if (likes === 0){
       post.likes = likes + 1;
