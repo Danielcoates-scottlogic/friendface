@@ -25,7 +25,7 @@ export class PostComponent implements OnInit{
 
     if (this.filterBy === "name") {
       this.posts.sort((a, b) => 
-        a.author.localeCompare(b.author) * reversed
+        a.user.username.localeCompare(b.user.username) * reversed
       );
     }
     else {

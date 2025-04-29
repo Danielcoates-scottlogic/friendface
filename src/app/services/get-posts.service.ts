@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class GetPostsService {
-  private apiURL = 'http://localhost:8080/getPosts'; 
+  private apiURL = 'http://localhost:8080/posts'; 
   private postsSubject = new BehaviorSubject<any[]>([]); 
 
   constructor(private http: HttpClient) {}
@@ -19,6 +19,7 @@ export class GetPostsService {
   fetchPosts(): void {
     this.http.get<any[]>(this.apiURL).subscribe(posts => {
       this.postsSubject.next(posts); 
+      console.log(posts);
     });
   }
 }

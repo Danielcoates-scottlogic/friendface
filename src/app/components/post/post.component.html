@@ -24,11 +24,11 @@
               }" />
       </div>
       <div class="info">
-        <h4>{{ post.author }}</h4>
+        <h4>{{ post.user.username }}</h4>
         <p class="date">{{ post.date }}</p>
       </div>
     </div>
-    <p class="content">{{ post.content }}</p>
+    <p class="content">{{ post.contents }}</p>
     <div class="actions">
       <p class="likes">Likes {{ post.likes }}</p>
       <button><img src="like.png" width="20px" height="20px" (click)="toggleLike(post)"></button>
