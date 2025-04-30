@@ -21,9 +21,3 @@ export class AddPostsService {
   }
 
 }
-/*EXAMPLE SEND JSON
-{  "contents": "I am the puppet master",
-  "user": {
-    "username": "gurveer"
-  }}
-*/
