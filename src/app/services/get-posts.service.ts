@@ -21,4 +21,5 @@ export class GetPostsService {
       this.postsSubject.next(posts); 
     });
   }
+
 }
