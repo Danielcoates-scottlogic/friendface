@@ -19,7 +19,6 @@ export class GetPostsService {
   fetchPosts(): void {
     this.http.get<any[]>(this.apiURL).subscribe(posts => {
       this.postsSubject.next(posts); 
-      console.log(posts);
     });
   }
 }

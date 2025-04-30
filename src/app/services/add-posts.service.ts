@@ -6,18 +6,24 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AddPostsService {
-  private apiURL = "http://localhost:8080/addPost";
+  private apiURL = "http://localhost:8080/posts";
   constructor(private http: HttpClient) { }
 
   addPosts(postData: any): Observable<any[]> {
-    const params = {
-      author: postData.author,
-      date: postData.date,
-      content: postData.post,
-      colour: postData.colour
+    const body = {
+      contents: postData.post,
+      user: {username: postData.author,
+        colour: "green"
+      }
     };
     
-    return this.http.post<any>(this.apiURL, null, { params });
+    return this.http.post<any>(this.apiURL, body);
   }
 
 }
+/*EXAMPLE SEND JSON
+{  "contents": "I am the puppet master",
+  "user": {
+    "username": "gurveer"
+  }}
+*/

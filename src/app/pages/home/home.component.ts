@@ -28,7 +28,5 @@ export class HomeComponent {
         console.error('Error submitting post:', error);
       }
     );
- 
-    console.log(data);
    }
 }
