@@ -11,12 +11,11 @@ export class AddPostsService {
 
   addPosts(postData: any): Observable<any[]> {
     const body = {
-      contents: postData.post,
-      user: {username: postData.author,
-        colour: "green"
-      }
+      content: postData.post,
+      author: postData.author,
+      
     };
-    
+    console.log(postData);
     return this.http.post<any>(this.apiURL, body);
   }
 

@@ -1,15 +1,15 @@
   <div class="form-container">
     <h1>Login</h1>
-    <form action="/login" method="POST">
-      <input type="text" name="username" id="username" placeholder="Username" required />
-      <input type="password" name="pwd" id="pwd" placeholder="Password" required />
+    <form #login="ngForm" (ngSubmit)="onLogin(login.value)">
+      <input type="text" name="username" id="username" placeholder="Username" required ngModel/>
+      <input type="password" name="pwd" id="pwd" placeholder="Password" required ngModel/>
       <input type="submit" value="Login" />
     </form>
   </div>
   <br/>
   <div class="form-container">
     <h1>Create Account</h1>
-    <form #addPost="ngForm" (ngSubmit)="onClickSubmit(addPost.value)">
+    <form #addUser="ngForm" (ngSubmit)="onClickSubmit(addUser.value)">
       <input type="text" name="createUsername" id="createUsername" placeholder="Enter a username" required ngModel />
       <input type="password" name="createPwd" id="createPwd" placeholder="Enter a password" required ngModel/>
       <input type="password" name="createPwdCheck" id="createPwdCheck" placeholder="Re-enter your password" required ngModel/>

@@ -11,30 +11,6 @@
       #author="ngModel"
     />
 
-    Colour:
-    <select
-      id="colour-field"
-      name="colour"
-      ngModel
-      required
-      #colour="ngModel"
-    >
-      <option value="">-- Select a colour --</option>
-      <option value="red">Red</option>
-      <option value="green">Green</option>
-      <option value="blue">Blue</option>
-    </select>
-
-    Date:
-    <input
-      id="date-field"
-      type="date"
-      name="date"
-      ngModel
-      required
-      #date="ngModel"
-    />
-
     <br />
 
     Content:
@@ -63,20 +39,12 @@
     <!-- Unified error box -->
     <div
     *ngIf="(author.touched || addPost.submitted) && author.invalid ||
-            (colour.touched || addPost.submitted) && colour.invalid ||
-            (date.touched || addPost.submitted) && date.invalid ||
             (post.touched || addPost.submitted) && post.invalid"
     class="error-box"
   >
     <ul>
       <li *ngIf="(author.touched || addPost.submitted) && author.invalid">
         Author is required.
-      </li>
-      <li *ngIf="(colour.touched || addPost.submitted) && colour.invalid">
-        Colour is required.
-      </li>
-      <li *ngIf="(date.touched || addPost.submitted) && date.invalid">
-        Date is required.
       </li>
       <li *ngIf="(post.touched || addPost.submitted) && post.invalid">
         Content is required.
