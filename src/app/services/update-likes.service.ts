@@ -15,4 +15,8 @@ export class UpdateLikesService {
     };
     return this.http.post<any>(this.apiUrl, body);
   }
+
+  countLikes(postId: any) {
+    return this.http.get<any>(this.apiUrl + '?postId=' + postId);
+  }
 }

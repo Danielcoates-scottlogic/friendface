@@ -15,7 +15,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
-export class PostComponent implements OnInit{
+export class PostComponent implements OnInit {
   @Input() descending: boolean = false;
   @Input() filterBy: string = "date";
   posts: Post[] = [];
@@ -23,22 +23,30 @@ export class PostComponent implements OnInit{
   onFormChange() {
     this.sortPosts();
   }
-  sortPosts(){
-    const reversed = this.descending?-1:1;
+  sortPosts() {
+    const reversed = this.descending ? -1 : 1;
 
     if (this.filterBy === "name") {
-      this.posts.sort((a, b) => 
+      this.posts.sort((a, b) =>
         a.user.username.localeCompare(b.user.username) * reversed
       );
     }
     else {
-      this.posts.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf() *reversed);
+      this.posts.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf() * reversed);
     }
   }
-  constructor(private postService: GetPostsService, private likesService: UpdateLikesService){}
+  constructor(private postService: GetPostsService, private likesService: UpdateLikesService) { }
   ngOnInit(): void {
     this.postService.posts$.subscribe((data => {
-      this.posts=data;
+      this.posts = data;
+      this.posts.forEach(post => {
+        this.likesService.countLikes(post.id).subscribe(
+          response => {
+            post.likes = response;
+          }
+        )
+      }
+      )
     }))
     this.postService.fetchPosts();
   }
@@ -47,8 +55,15 @@ export class PostComponent implements OnInit{
     let token = localStorage.getItem('jwt')!;
     let username = this.helper.decodeToken(token).sub;
     this.likesService.likes(username, post.id).subscribe(
-      response => {
-        console.log('Like submitted successfully:', response);
+      (liked: boolean) => {
+        if (liked) {
+          post.likes += 1;
+        } else {
+          post.likes -= 1;
+        }
+      },
+      error => {
+        console.error('Error updating like:', error);
       })
   }
 
