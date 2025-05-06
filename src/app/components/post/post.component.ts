@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GetPostsService } from '../../services/get-posts.service';
+import { UpdateLikesService } from '../../services/update-likes.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Post } from '../../interfaces/post';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Component({
@@ -17,6 +19,7 @@ export class PostComponent implements OnInit{
   @Input() descending: boolean = false;
   @Input() filterBy: string = "date";
   posts: Post[] = [];
+  helper = new JwtHelperService();
   onFormChange() {
     this.sortPosts();
   }
@@ -32,7 +35,7 @@ export class PostComponent implements OnInit{
       this.posts.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf() *reversed);
     }
   }
-  constructor(private postService: GetPostsService){}
+  constructor(private postService: GetPostsService, private likesService: UpdateLikesService){}
   ngOnInit(): void {
     this.postService.posts$.subscribe((data => {
       this.posts=data;
@@ -41,13 +44,12 @@ export class PostComponent implements OnInit{
   }
 
   toggleLike(post: any) {
-    let likes = Number(post.likes);
-    if (likes === 0){
-      post.likes = likes + 1;
-    }
-    else {
-      post.likes = likes - 1;
-    }
+    let token = localStorage.getItem('jwt')!;
+    let username = this.helper.decodeToken(token).sub;
+    this.likesService.likes(username, post.id).subscribe(
+      response => {
+        console.log('Like submitted successfully:', response);
+      })
   }
 
 }
