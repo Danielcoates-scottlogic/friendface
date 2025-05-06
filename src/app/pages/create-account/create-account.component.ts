@@ -11,13 +11,28 @@ import { LoginService } from '../../services/login.service';
 })
 export class CreateAccountComponent {
   constructor(private createUserService: CreateUserService, private loginService: LoginService){}
+
+  ngOnInit() {
+    if (localStorage.getItem('jwt') !== null) {
+      localStorage.removeItem('jwt');
+    }
+  }
+
   onLogin(data: any) {
     if(!this.usernameLength(data.username)) return;
     if(!this.passwordLength(data.pwd)) return;
     this.loginService.login(data).subscribe(
       response => {
         console.log('logged in:', response);
-        alert("Logged in");
+        localStorage.setItem('jwt', response.token);
+        window.location.href = '/pages/home';
+      },
+      error => {
+        if(error.status === 401) {
+          alert(error.error?.message || "Invalid credentials")
+        } else {
+          alert('Login failed. Please try again.');
+        }
       }
     );
   }

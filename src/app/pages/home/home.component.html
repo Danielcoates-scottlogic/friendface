@@ -1,62 +1,38 @@
-<div id="form-area">
-  <form #addPost="ngForm" (ngSubmit)="onClickSubmit(addPost.value)">
+<div *ngIf="signedIn; else notSignedIn">
+  <div id="form-area">
+    <form #addPost="ngForm" (ngSubmit)="onClickSubmit(addPost.value)">
 
-    Author:
-    <input
-      id="author-field"
-      type="text"
-      name="author"
-      ngModel
-      required
-      #author="ngModel"
-    />
+      Content:
+      <br />
+      <textarea rows="4" cols="100" id="content-field" class="post-entry" name="post" ngModel required
+        #post="ngModel"></textarea>
 
-    <br />
+      <br />
 
-    Content:
-    <br />
-    <textarea
-      rows="4"
-      cols="100"
-      id="content-field"
-      class="post-entry"
-      name="post"
-      ngModel
-      required
-      #post="ngModel"
-    ></textarea>
+      <!-- Submit button -->
+      <input id="add-post-submit" type="submit" value="submit" [disabled]="addPost.invalid" />
 
-    <br />
-
-    <!-- Submit button -->
-    <input
-      id="add-post-submit"
-      type="submit"
-      value="submit"
-      [disabled]="addPost.invalid"
-    />
-
-    <!-- Unified error box -->
-    <div
-    *ngIf="(author.touched || addPost.submitted) && author.invalid ||
-            (post.touched || addPost.submitted) && post.invalid"
-    class="error-box"
-  >
-    <ul>
-      <li *ngIf="(author.touched || addPost.submitted) && author.invalid">
-        Author is required.
-      </li>
-      <li *ngIf="(post.touched || addPost.submitted) && post.invalid">
-        Content is required.
-      </li>
-    </ul>
+      <!-- Unified error box -->
+      <div *ngIf="( addPost.submitted) ||
+            (post.touched || addPost.submitted) && post.invalid" class="error-box">
+        <ul>
+          <li *ngIf="(post.touched || addPost.submitted) && post.invalid">
+            Content is required.
+          </li>
+        </ul>
+      </div>
+    </form>
   </div>
-  </form>
+
+
+
+  <hr />
+
+
+  <app-post></app-post>
 </div>
 
-
-
-<hr />
-
-
-<app-post></app-post>
+<ng-template #notSignedIn>
+  <h1>You must be signed in to view this content</h1>
+  <a href="/pages/create-account">Sign in here</a>
+</ng-template>

@@ -11,4 +11,8 @@
             <a routerLink="../pages/gurveer">Gurveer</a>
         </nav>
     </div>
+    <div *ngIf="loginStatus === true">
+        <p>Username: {{username}}</p>
+        <button (click)="logout()">Logout</button>
+    </div>
 </div>

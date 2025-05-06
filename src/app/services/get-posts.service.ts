@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -17,7 +17,11 @@ export class GetPostsService {
   }
 
   fetchPosts(): void {
-    this.http.get<any[]>(this.apiURL).subscribe(posts => {
+    const token = localStorage.getItem('jwt');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    this.http.get<any[]>(this.apiURL, {headers}).subscribe(posts => {
       this.postsSubject.next(posts); 
     });
   }
