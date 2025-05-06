@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CreateUserService } from '../../services/create-user.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class CreateAccountComponent {
       }
     );
   }
-  onClickSubmit(data: any) {
+  onClickSubmit(data: any, addUser: NgForm) {
     if(!this.usernameLength(data.createUsername)) return;
     if(!this.passwordLength(data.createPwd)) return;
     if(!this.passwordCheck(data.createPwd, data.createPwdCheck)) return;
@@ -44,6 +44,7 @@ export class CreateAccountComponent {
       response => {
         console.log('user submitted successfully:', response);
         alert("Account created! You can now Login");
+        addUser.resetForm();
       },
       error => {
         console.error('Error submitting user:', error);

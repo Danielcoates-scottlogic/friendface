@@ -9,7 +9,7 @@
   <br/>
   <div class="form-container">
     <h1>Create Account</h1>
-    <form #addUser="ngForm" (ngSubmit)="onClickSubmit(addUser.value)">
+    <form #addUser="ngForm" name="addUser" (ngSubmit)="onClickSubmit(addUser.value, addUser)">
       <input type="text" name="createUsername" id="createUsername" placeholder="Enter a username" required ngModel />
       <input type="password" name="createPwd" id="createPwd" placeholder="Enter a password" required ngModel/>
       <input type="password" name="createPwdCheck" id="createPwdCheck" placeholder="Re-enter your password" required ngModel/>
