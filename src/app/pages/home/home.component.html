@@ -1,38 +1,26 @@
 <div *ngIf="signedIn; else notSignedIn">
-  <div id="form-area">
-    <form #addPost="ngForm" (ngSubmit)="onClickSubmit(addPost.value)">
-
-      Content:
-      <br />
-      <textarea rows="4" cols="100" id="content-field" class="post-entry" name="post" ngModel required
-        #post="ngModel"></textarea>
-
-      <br />
-
-      <!-- Submit button -->
-      <input id="add-post-submit" type="submit" value="submit" [disabled]="addPost.invalid" />
-
-      <!-- Unified error box -->
-      <div *ngIf="( addPost.submitted) ||
-            (post.touched || addPost.submitted) && post.invalid" class="error-box">
+  <div id="form-area" class="form-container">
+    <form #addPost="ngForm" name="addPost" (ngSubmit)="onClickSubmit(addPost.value, addPost)">
+      <label for="content-field" class="form-label">Content:</label>
+      <textarea rows="4" cols="100" id="content-field" class="post-entry" name="post" ngModel required #post="ngModel"></textarea>
+      <div *ngIf="(addPost.submitted || post.touched) && post.invalid" class="error-box">
         <ul>
-          <li *ngIf="(post.touched || addPost.submitted) && post.invalid">
-            Content is required.
+          <li *ngIf="post.invalid && (post.touched || addPost.submitted)">
+            <span class="error-text">Content is required.</span>
           </li>
         </ul>
       </div>
+
+      <button id="add-post-submit" type="submit" [disabled]="addPost.invalid" class="submit-button">Submit</button>
     </form>
   </div>
 
-
-
   <hr />
-
 
   <app-post></app-post>
 </div>
 
 <ng-template #notSignedIn>
-  <h1>You must be signed in to view this content</h1>
-  <a href="/pages/create-account">Sign in here</a>
+  <h1 class="signin-message">You must be signed in to view this content</h1>
+  <a href="/pages/create-account" class="signin-link">Sign in here</a>
 </ng-template>
