@@ -15,7 +15,7 @@
     <div class="input-icon-wrapper">
       <input [type]="showPwd ? 'text' : 'password'" name="createPwd" id="createPwd" placeholder="Enter a password"
         required ngModel />
-      <i class="fa fa-eye-slash toggle-password" [ngClass]="{
+      <i class="fa toggle-password" [ngClass]="{
         'fa-eye-slash': !showPwd,
         'fa-eye': showPwd
       }" (click)=" showPassword()"></i>
@@ -24,7 +24,7 @@
     <div class="input-icon-wrapper">
       <input [type]="showPwdCheck ? 'text' : 'password'" name="createPwdCheck" id="createPwdCheck"
         placeholder="Re-enter your password" required ngModel />
-      <i class="fa fa-eye-slash toggle-password" [ngClass]="{
+      <i class="fa toggle-password" [ngClass]="{
         'fa-eye-slash': !showPwdCheck,
         'fa-eye': showPwdCheck
       }" (click)="showPasswordCheck()"></i>
