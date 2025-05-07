@@ -50,3 +50,20 @@ body {
     margin-top: 0.5rem;
     font-weight: bold;
   }
+
+
+  .input-wrapper {
+
+    display: flex;
+    float: left;
+  }
+  
+
+  
+  .toggle-password {
+
+    cursor: pointer;
+    color: #888;
+  }
+  
+  
