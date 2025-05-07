@@ -1,15 +1,20 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CreateUserService } from '../../services/create-user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-create-account',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.css'
 })
 export class CreateAccountComponent {
+
+  showPwd: boolean = false;
+  showPwdCheck: boolean = false;
+
   constructor(private createUserService: CreateUserService, private loginService: LoginService){}
 
   ngOnInit() {
@@ -80,6 +85,13 @@ export class CreateAccountComponent {
       return false;
     }
     return true;
+  }
+
+  showPassword() {
+    this.showPwd = !this.showPwd;
+  }
+  showPasswordCheck() {
+    this.showPwdCheck = !this.showPwdCheck;
   }
 
 }
