@@ -13,7 +13,6 @@ export class CreateUserService {
       colour: postData.colour,
       password: postData.createPwd
     };
-    console.log(body);
     return this.http.post<any>(this.apiURL, body);
   }
 }

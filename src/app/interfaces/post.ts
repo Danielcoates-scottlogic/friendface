@@ -4,5 +4,6 @@ export interface Post {
     date: Date;
     contents: string;
     likes: number;
+    liked: boolean;
 
 }

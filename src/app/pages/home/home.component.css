@@ -16,7 +16,7 @@
   }
 
   .post-entry {
-    width: 100%;
+    width: 96%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -40,7 +40,7 @@
   }
 
   .error-box {
-    margin-top: 10px;
+    margin-bottom: 20px;
     padding: 10px;
     background-color: #f8d7da;
     border-radius: 8px;

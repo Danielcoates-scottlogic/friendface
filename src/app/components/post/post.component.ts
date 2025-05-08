@@ -6,6 +6,7 @@ import { UpdateLikesService } from '../../services/update-likes.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Post } from '../../interfaces/post';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { response } from 'express';
 
 
 @Component({
@@ -45,6 +46,13 @@ export class PostComponent implements OnInit {
             post.likes = response;
           }
         )
+        let token = localStorage.getItem('jwt')!;
+        let username = this.helper.decodeToken(token).sub;
+        this.likesService.checkLike(username, post.id).subscribe(
+          response => {
+              post.liked = response;
+          }
+        )
       }
       )
     }))
@@ -52,14 +60,17 @@ export class PostComponent implements OnInit {
   }
 
   toggleLike(post: any) {
+    console.log(post);
     let token = localStorage.getItem('jwt')!;
     let username = this.helper.decodeToken(token).sub;
     this.likesService.likes(username, post.id).subscribe(
       (liked: boolean) => {
         if (liked) {
           post.likes += 1;
+          post.liked = true;
         } else {
           post.likes -= 1;
+          post.liked = false;
         }
       },
       error => {
