@@ -53,8 +53,15 @@ export class CreateAccountComponent {
         addUser.resetForm();
       },
       error => {
-        console.error('Error submitting user:', error);
-        alert("Error, please try again!");
+        if (error.status === 409){
+          console.error('Error submitting user:', error);
+          alert("User already exists!");
+        } 
+        else {
+          console.error('Error submitting user:', error);
+          alert("Error, please try again!");
+        }
+
       }
     );
   }
