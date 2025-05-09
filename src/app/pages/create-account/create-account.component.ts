@@ -35,7 +35,7 @@ export class CreateAccountComponent {
       },
       error => {
         if(error.status === 401) {
-          alert(error.error?.message || "Invalid credentials")
+          alert("Invalid credentials")
         } else {
           alert('Login failed. Please try again.');
         }
