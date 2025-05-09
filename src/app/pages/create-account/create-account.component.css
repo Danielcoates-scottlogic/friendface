@@ -50,6 +50,14 @@ body {
     font-weight: bold;
   }
 
+  button {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+  }
 
   .input-wrapper {
     display: flex;

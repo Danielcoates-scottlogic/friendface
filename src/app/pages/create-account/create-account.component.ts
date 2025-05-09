@@ -14,6 +14,7 @@ export class CreateAccountComponent {
 
   showPwd: boolean = false;
   showPwdCheck: boolean = false;
+  signedUp: boolean = true;
 
   constructor(private createUserService: CreateUserService, private loginService: LoginService){}
 
@@ -92,6 +93,9 @@ export class CreateAccountComponent {
   }
   showPasswordCheck() {
     this.showPwdCheck = !this.showPwdCheck;
+  }
+  toggleOption() {
+    this.signedUp = !this.signedUp;
   }
 
 }
