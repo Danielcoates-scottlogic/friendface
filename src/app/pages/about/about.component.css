@@ -1,0 +1,11 @@
+div {
+    display: flex;
+    margin: auto;
+    text-align: center;
+    flex-direction: column;
+    justify-items: center;
+}
+img {
+    display: block;
+    margin: auto;
+}
