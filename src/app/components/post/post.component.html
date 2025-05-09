@@ -31,7 +31,7 @@
     <p class="content">{{ post.contents }}</p>
     <div class="actions">
       <p class="likes">Likes {{ post.likes }}</p>
-      <button><img [src]="post.liked ? 'liked.png' : 'like.png'" width="20px" height="20px" (click)="toggleLike(post)"></button>
+      <button><i class="fa" [ngClass]="post.liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'" style="color: #d90005;" width="20px" height="20px" (click)="toggleLike(post)"></i></button>
     </div>
   </div>
 </div>
