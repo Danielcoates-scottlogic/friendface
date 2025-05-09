@@ -19,7 +19,6 @@ export class NavbarComponent {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log('route changed');
         if (localStorage.getItem('jwt') !== null) {
           this.loginStatus = true;
           let token = localStorage.getItem('jwt')!;

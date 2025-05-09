@@ -19,7 +19,6 @@ export class AddPostsService {
       author: username,
       
     };
-    console.log(postData);
     return this.http.post<any>(this.apiURL, body, {headers});
   }
 

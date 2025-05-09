@@ -60,7 +60,6 @@ export class PostComponent implements OnInit {
   }
 
   toggleLike(post: any) {
-    console.log(post);
     let token = localStorage.getItem('jwt')!;
     let username = this.helper.decodeToken(token).sub;
     this.likesService.likes(username, post.id).subscribe(
