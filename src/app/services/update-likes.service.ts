@@ -13,7 +13,7 @@ export class UpdateLikesService {
       username: username,
       postId: postId
     };
-    return this.http.post<any>(this.apiUrl+'/addLike', body);
+    return this.http.put<any>(this.apiUrl, body);
   }
 
   checkLike(username: string, postId: any) {
@@ -21,7 +21,7 @@ export class UpdateLikesService {
       username: username,
       postId: postId
     };
-    return this.http.post<any>(this.apiUrl + '/checkLike', body);
+    return this.http.post<any>(this.apiUrl, body);
   }
 
   countLikes(postId: any) {
