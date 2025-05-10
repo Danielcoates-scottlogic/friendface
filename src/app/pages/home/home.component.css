@@ -1,7 +1,72 @@
-body{
-    overflow: auto;
-}
-.error {
-    color: red;
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .post-entry {
+    width: 96%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+  }
+
+  .submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+
+  .submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .error-box {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8d7da;
+    border-radius: 8px;
+    color: #721c24;
+  }
+
+  .error-text {
     font-size: 0.9em;
-}
+    color: #721c24;
+  }
+
+
+  .signin-message {
+    text-align: center;
+    font-size: 1.5em;
+    color: #333;
+  }
+
+  .signin-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #007BFF;
+    text-decoration: none;
+  }
+
+  .signin-link:hover {
+    text-decoration: underline;
+  }

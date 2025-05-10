@@ -1,0 +1,52 @@
+<div class="form-container" *ngIf="signedUp; else notSignedUp">
+  <h1>Login</h1>
+  <form #login="ngForm" (ngSubmit)="onLogin(login.value)">
+    <input type="text" name="username" id="username" placeholder="Username" required ngModel />
+    <div class="input-icon-wrapper">
+      <input [type]="showPwd ? 'text' : 'password'" name="pwd" id="pwd" placeholder="Password"
+        required ngModel />
+      <i class="fa toggle-password" [ngClass]="{
+        'fa-eye-slash': !showPwd,
+        'fa-eye': showPwd
+      }" (click)=" showPassword()"></i>
+    </div>
+    <input type="submit" value="Login" />
+  </form>
+  <button (click)="toggleOption()">Not got an account? Create one</button>
+</div>
+<br />
+
+<ng-template #notSignedUp>
+  <div class="form-container">
+    <h1>Create account</h1>
+    <form #addUser="ngForm" name="addUser" (ngSubmit)="onClickSubmit(addUser.value, addUser)">
+      <input type="text" name="createUsername" id="createUsername" placeholder="Enter a username" required ngModel />
+  
+      <div class="input-icon-wrapper">
+        <input [type]="showPwd ? 'text' : 'password'" name="createPwd" id="createPwd" placeholder="Enter a password"
+          required ngModel />
+        <i class="fa toggle-password" [ngClass]="{
+          'fa-eye-slash': !showPwd,
+          'fa-eye': showPwd
+        }" (click)=" showPassword()"></i>
+      </div>
+  
+      <div class="input-icon-wrapper">
+        <input [type]="showPwdCheck ? 'text' : 'password'" name="createPwdCheck" id="createPwdCheck"
+          placeholder="Re-enter your password" required ngModel />
+        <i class="fa toggle-password" [ngClass]="{
+          'fa-eye-slash': !showPwdCheck,
+          'fa-eye': showPwdCheck
+        }" (click)="showPasswordCheck()"></i>
+      </div>
+  
+  
+  
+      <label for="colour">Choose a profile colour:</label>
+      <input type="color" name="colour" id="colour" value="#000000" ngModel />
+  
+      <input type="submit" value="Create Account" />
+    </form>
+    <button (click)="toggleOption()">Already got an account? Sign in</button>
+  </div>
+</ng-template>

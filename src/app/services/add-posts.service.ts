@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,18 +6,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AddPostsService {
-  private apiURL = "http://localhost:8080/addPost";
+  private apiURL = "http://localhost:8080/posts";
   constructor(private http: HttpClient) { }
 
-  addPosts(postData: any): Observable<any[]> {
-    const params = {
-      author: postData.author,
-      date: postData.date,
+  addPosts(postData: any, username: string): Observable<any[]> {
+    const token = localStorage.getItem('jwt');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const body = {
       content: postData.post,
-      colour: postData.colour
+      author: username,
+      
     };
-    
-    return this.http.post<any>(this.apiURL, null, { params });
+    return this.http.post<any>(this.apiURL, body, {headers});
   }
 
 }

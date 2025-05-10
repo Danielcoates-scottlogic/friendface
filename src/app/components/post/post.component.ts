@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GetPostsService } from '../../services/get-posts.service';
+import { UpdateLikesService } from '../../services/update-likes.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Post } from '../../interfaces/post';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { response } from 'express';
 
 
 @Component({
@@ -12,38 +16,65 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
-export class PostComponent implements OnInit{
+export class PostComponent implements OnInit {
   @Input() descending: boolean = false;
-  @Input() filterBy: String = "date";
-  posts: any[] = [];
+  @Input() filterBy: string = "date";
+  posts: Post[] = [];
+  helper = new JwtHelperService();
   onFormChange() {
     this.sortPosts();
   }
-  sortPosts(){
-    console.log('here');
-    let reversed = 1;
-    if (this.descending === true) {
-      reversed = -1;
-    }
+  sortPosts() {
+    const reversed = this.descending ? -1 : 1;
+
     if (this.filterBy === "name") {
-      this.posts.sort((a, b) => 
-        a.author.localeCompare(b.author) * reversed
+      this.posts.sort((a, b) =>
+        a.user.username.localeCompare(b.user.username) * reversed
       );
     }
     else {
-      this.posts.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf() *reversed);
+      this.posts.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf() * reversed);
     }
   }
-  constructor(private postService: GetPostsService){
-    console.log('PostService:', postService);
-  }
+  constructor(private postService: GetPostsService, private likesService: UpdateLikesService) { }
   ngOnInit(): void {
     this.postService.posts$.subscribe((data => {
-      this.posts=data;
+      this.posts = data;
+      this.posts.forEach(post => {
+        this.likesService.countLikes(post.id).subscribe(
+          response => {
+            post.likes = response;
+          }
+        )
+        let token = localStorage.getItem('jwt')!;
+        let username = this.helper.decodeToken(token).sub;
+        this.likesService.checkLike(username, post.id).subscribe(
+          response => {
+              post.liked = response;
+          }
+        )
+      }
+      )
     }))
     this.postService.fetchPosts();
-    console.log(this.posts)
   }
 
+  toggleLike(post: any) {
+    let token = localStorage.getItem('jwt')!;
+    let username = this.helper.decodeToken(token).sub;
+    this.likesService.likes(username, post.id).subscribe(
+      (liked: boolean) => {
+        if (liked) {
+          post.likes += 1;
+          post.liked = true;
+        } else {
+          post.likes -= 1;
+          post.liked = false;
+        }
+      },
+      error => {
+        console.error('Error updating like:', error);
+      })
+  }
 
 }

@@ -1,3 +1,5 @@
+
+
 <form #orderPosts="ngForm" id="order-posts">
   <label for="options">Sort by:</label>
   <select id="options" name="orderBy" [(ngModel)]="filterBy"  (ngModelChange)="onFormChange()">
@@ -7,23 +9,29 @@
   <label for="descending">Descending</label>
   <input type="checkbox"  name="descending" [(ngModel)]="descending" (ngModelChange)="onFormChange()"/>
 </form>
+
+<div *ngIf="posts.length < 1">
+  <h1>No Posts</h1>
+</div>
+
 <div id="posts">
   <div *ngFor="let post of posts" class="post">
     <div class="profile">
       <div class="avatar">
         <img src="person.png" width="50" height="50" [ngStyle]="{
-                'background-color': post.colour,
+                'background-color': post.user.colour,
                 'border-radius': '25px'
               }" />
       </div>
       <div class="info">
-        <h4>{{ post.author }}</h4>
-        <p class="date">{{ post.date }}</p>
+        <h4>{{ post.user.username }}</h4>
+        <p class="date">{{ post.date | date: 'dd-MM-yyyy' }}</p>
       </div>
     </div>
-    <p class="content">{{ post.content }}</p>
+    <p class="content">{{ post.contents }}</p>
     <div class="actions">
       <p class="likes">Likes {{ post.likes }}</p>
+      <button><i class="fa" [ngClass]="post.liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'" style="color: #d90005;" width="20px" height="20px" (click)="toggleLike(post)"></i></button>
     </div>
   </div>
 </div>

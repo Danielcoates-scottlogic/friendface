@@ -7,8 +7,12 @@
     <div class="center">
         <nav>
             <a routerLink="../pages/home">Home</a>
-            <a>About</a>
+            <a routerLink="../pages/about">About</a>
             <a routerLink="../pages/gurveer">Gurveer</a>
         </nav>
+    </div>
+    <div class="right" *ngIf="loginStatus === true">
+        <p>Username: {{username}}</p>
+        <button (click)="logout()">Logout</button>
     </div>
 </div>
