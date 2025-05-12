@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Post } from '../../interfaces/post';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { response } from 'express';
+import { forkJoin, map } from 'rxjs';
 
 
 @Component({
@@ -38,6 +39,9 @@ export class PostComponent implements OnInit {
   }
   constructor(private postService: GetPostsService, private likesService: UpdateLikesService) { }
   ngOnInit(): void {
+    this.postService.fetchPosts();
+    let token = localStorage.getItem('jwt')!;
+    let username = this.helper.decodeToken(token).sub;
     this.postService.posts$.subscribe((data => {
       this.posts = data;
       this.posts.forEach(post => {
@@ -46,8 +50,6 @@ export class PostComponent implements OnInit {
             post.likes = response;
           }
         )
-        let token = localStorage.getItem('jwt')!;
-        let username = this.helper.decodeToken(token).sub;
         this.likesService.checkLike(username, post.id).subscribe(
           response => {
               post.liked = response;
@@ -56,7 +58,6 @@ export class PostComponent implements OnInit {
       }
       )
     }))
-    this.postService.fetchPosts();
   }
 
   toggleLike(post: any) {

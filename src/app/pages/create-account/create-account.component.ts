@@ -3,20 +3,34 @@ import { CommonModule } from '@angular/common';
 import { CreateUserService } from '../../services/create-user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { GuachosImagePickerModule, ImagePickerConf } from 'guachos-image-picker';
+import { profile } from 'console';
+
+
 
 @Component({
   selector: 'app-create-account',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, GuachosImagePickerModule],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.css'
 })
 export class CreateAccountComponent {
-
+  imagePickerConf: ImagePickerConf = {
+    borderRadius: '4px',
+    width: '50px',
+    height: '50px',
+    hideDownloadBtn: true,
+    hideEditBtn: true,
+    language: 'en',
+  };
+  imgSrc: string = "";
   showPwd: boolean = false;
   showPwdCheck: boolean = false;
   signedUp: boolean = true;
 
+
   constructor(private createUserService: CreateUserService, private loginService: LoginService){}
+
 
   ngOnInit() {
     if (localStorage.getItem('jwt') !== null) {
@@ -35,7 +49,7 @@ export class CreateAccountComponent {
       },
       error => {
         if(error.status === 401) {
-          alert("Invalid credentials")
+          alert("Invalid credentials.")
         } else {
           alert('Login failed. Please try again.');
         }
@@ -43,6 +57,13 @@ export class CreateAccountComponent {
     );
   }
   onClickSubmit(data: any, addUser: NgForm) {
+    if (this.imgSrc){
+      const dataWithImage = {
+        ...data,
+        profileImage: this.imgSrc
+      };
+      data = dataWithImage;
+    };
     if(!this.usernameLength(data.createUsername)) return;
     if(!this.passwordLength(data.createPwd)) return;
     if(!this.passwordCheck(data.createPwd, data.createPwdCheck)) return;
@@ -103,6 +124,9 @@ export class CreateAccountComponent {
   }
   toggleOption() {
     this.signedUp = !this.signedUp;
+  }
+  onImageChange(img: any) {
+    this.imgSrc=img;
   }
 
 }

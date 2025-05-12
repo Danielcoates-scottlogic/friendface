@@ -44,9 +44,12 @@
   
       <label for="colour">Choose a profile colour:</label>
       <input type="color" name="colour" id="colour" value="#000000" ngModel />
+
+      
   
       <input type="submit" value="Create Account" />
     </form>
+    <guachos-image-picker [_config]="imagePickerConf" ($imageChanged)="onImageChange($event)"></guachos-image-picker>
     <button (click)="toggleOption()">Already got an account? Sign in</button>
   </div>
 </ng-template>

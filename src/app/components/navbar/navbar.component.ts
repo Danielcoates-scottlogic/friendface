@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { RouterLink, NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { DarkModeToggleComponent } from '../dark-mode-toggle/dark-mode-toggle.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, DarkModeToggleComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
