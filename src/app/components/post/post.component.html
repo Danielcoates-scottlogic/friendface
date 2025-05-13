@@ -18,7 +18,7 @@
   <div *ngFor="let post of posts" class="post">
     <div class="profile">
       <div class="avatar">
-        <img src="person.png" width="50" height="50" [ngStyle]="{
+        <img [src]="post.user.pfp ? 'data:image/webp;base64,' + post.user.pfp : 'person.png'" width="50" height="50" [ngStyle]="{
                 'background-color': post.user.colour,
                 'border-radius': '25px'
               }" />

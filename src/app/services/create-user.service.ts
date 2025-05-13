@@ -21,7 +21,6 @@ export class CreateUserService {
     if(postData.profileImage) {
       body['profileImg'] = postData.profileImage;
     }
-    console.log(body);
     return this.http.post<any>(this.apiURL, body);
   }
 }
