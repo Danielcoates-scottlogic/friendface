@@ -6,8 +6,7 @@ import { UpdateLikesService } from '../../services/update-likes.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Post } from '../../interfaces/post';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { response } from 'express';
-import { forkJoin, map } from 'rxjs';
+
 
 
 @Component({

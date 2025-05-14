@@ -13,6 +13,7 @@
 
       <button id="add-post-submit" type="submit" [disabled]="addPost.invalid" class="submit-button">Submit</button>
     </form>
+    <guachos-image-picker [_config]="imagePickerConf" ($imageChanged)="onImageChange($event)"></guachos-image-picker>
   </div>
 
   <hr />

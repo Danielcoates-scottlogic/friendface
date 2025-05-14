@@ -6,15 +6,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddPostsService } from '../../services/add-posts.service';
 import { GetPostsService } from '../../services/get-posts.service';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { GuachosImagePickerModule, ImagePickerConf } from 'guachos-image-picker';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, PostComponent, FormsModule, HttpClientModule],
+  imports: [CommonModule, PostComponent, FormsModule, HttpClientModule, GuachosImagePickerModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  imagePickerConf: ImagePickerConf = {
+    borderRadius: '4px',
+    width: '100px',
+    height: '100px',
+    hideDownloadBtn: true,
+    hideEditBtn: true,
+    language: 'en',
+  };
+  imgSrc = '';
   signedIn = false;
   helper = new JwtHelperService();
   token = localStorage.getItem('jwt')!;
@@ -29,6 +39,13 @@ export class HomeComponent {
   }
 
   onClickSubmit(data: any, addPost: NgForm) {
+    if (this.imgSrc){
+      const dataWithImage = {
+        ...data,
+        postImage: this.imgSrc
+      };
+      data = dataWithImage;
+    };
     this.postService.addPosts(data, this.username).subscribe(
       response => {
         console.log('Post submitted successfully:', response);
@@ -39,5 +56,9 @@ export class HomeComponent {
         console.error('Error submitting post:', error);
       }
     );
+  }
+
+  onImageChange(img: any) {
+    this.imgSrc = img;
   }
 }

@@ -22,6 +22,7 @@ export class GetPostsService {
       'Authorization': `Bearer ${token}`
     });
     this.http.get<any[]>(this.apiURL, {headers}).subscribe(posts => {
+      console.log(posts);
       this.postsSubject.next(posts); 
     });
   }

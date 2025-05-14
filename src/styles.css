@@ -7,4 +7,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .dark-theme {
     background-color: #121212;
+    /*color-scheme: dark;*/
+    .post{
+        background-color: darkslategrey;
+        color: #ffffff;
+    }
   }

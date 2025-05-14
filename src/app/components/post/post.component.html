@@ -29,6 +29,7 @@
       </div>
     </div>
     <p class="content">{{ post.contents }}</p>
+    <img *ngIf="post.image" [src]="post.image ? 'data:image/webp;base64,' + post.image : ''" width="100" height="100">
     <div class="actions">
       <p class="likes">Likes {{ post.likes }}</p>
       <button><i class="fa" [ngClass]="post.liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'" style="color: #d90005;" width="20px" height="20px" (click)="toggleLike(post)"></i></button>

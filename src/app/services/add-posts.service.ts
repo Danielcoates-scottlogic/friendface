@@ -14,11 +14,18 @@ export class AddPostsService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    const body = {
+    let body: {
+      content: string;
+      author: string;
+      postImage?: string;
+    } = {
       content: postData.post,
       author: username,
       
     };
+    if(postData.postImage) {
+      body['postImage'] = postData.postImage;
+    }
     return this.http.post<any>(this.apiURL, body, {headers});
   }
 

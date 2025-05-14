@@ -5,5 +5,5 @@ export interface Post {
     contents: string;
     likes: number;
     liked: boolean;
-
+    image: string;
 }
