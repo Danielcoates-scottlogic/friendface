@@ -41,5 +41,21 @@ base.describe('Authenticated tests', () => {
         await page.getByText('Logout').click();
         await expect(page).toHaveURL('http://localhost:4200/pages/create-account');
     });
+    test('User can like and unlike posts', async ({ page }) => {
+        await page.goto('http://localhost:4200/pages/home');
+        await page.locator('.post')
+            .filter({ hasText: 'joe' })              
+            .filter({ hasText: 'im locked in' })    
+            .filter({ hasText: '1'})  
+            .locator('button')
+            .click();
+
+        await page.locator('.post')
+            .filter({ hasText: 'joe' })
+            .filter({ hasText: 'im locked in' })
+            .filter({ hasText: '2'})
+            .locator('button')
+            .click();
+    })
 
 });
