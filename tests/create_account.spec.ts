@@ -129,3 +129,10 @@ test('create account, password less than 3 chars', async ({ page }) => {
   await page.locator('input[type="submit"]');
 
 })
+
+test('dark mode toggle', async ({ page }) => {
+  await page.goto('http://localhost:4200/');
+  const icon = page.locator('button mat-icon');
+  await icon.click();
+  await expect(page.locator('body')).toHaveClass('dark-theme');
+})
