@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
   selector: 'app-root',
   imports: [RouterOutlet, NavbarComponent, HttpClientModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'friendface';

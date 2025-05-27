@@ -13,6 +13,9 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+import 'localstorage-polyfill'
+
+global['localStorage'] = localStorage;
 
 /**
  * Example Express Rest API endpoints can be defined here.

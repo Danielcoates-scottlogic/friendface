@@ -3,12 +3,19 @@
         <h1>FriendFace</h1>
         <p>The best social media</p>
     </div>
-
+    
     <div class="center">
         <nav>
             <a routerLink="../pages/home">Home</a>
-            <a>About</a>
+            <a routerLink="../pages/about">About</a>
             <a routerLink="../pages/gurveer">Gurveer</a>
         </nav>
+    </div>
+    <div class="right">
+        <div  *ngIf="loginStatus === true">
+            <p>Username: {{username}}</p>
+            <button (click)="logout()">Logout</button>
+        </div>
+        <app-dark-mode-toggle></app-dark-mode-toggle>
     </div>
 </div>
