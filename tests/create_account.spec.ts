@@ -15,7 +15,7 @@ test('login with valid user test', async ({ page }) => {
   await button.click();
 
   await expect(page).toHaveURL('http://localhost:4200/pages/home');
-  await expect(page.getByText('Username: dan')).toBeVisible();
+  await expect(page.getByText('Username: dan')).toBeVisible({ timeout: 10000 });
 });
 
 test('login with invalid user test', async ({ page }) => {

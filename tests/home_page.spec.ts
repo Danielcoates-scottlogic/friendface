@@ -18,6 +18,12 @@ base.describe('Public tests', () => {
         await page.goto('http://localhost:4200/pages/home');
         await expect(page).toHaveTitle('Friendface');
     });
+    test('dark mode toggle', async ({ page }) => {
+        await page.goto('http://localhost:4200/');
+        const icon = page.locator('button mat-icon');
+        await icon.click();
+        await expect(page.locator('body')).toHaveClass('dark-theme');
+    })
 });
 
 
@@ -44,18 +50,23 @@ base.describe('Authenticated tests', () => {
     test('User can like and unlike posts', async ({ page }) => {
         await page.goto('http://localhost:4200/pages/home');
         await page.locator('.post')
-            .filter({ hasText: 'joe' })              
-            .filter({ hasText: 'im locked in' })    
-            .filter({ hasText: '1'})  
+            .filter({ hasText: 'joe' })
+            .filter({ hasText: 'im locked in' })
+            .filter({ hasText: '1' })
             .locator('button')
             .click();
 
         await page.locator('.post')
             .filter({ hasText: 'joe' })
             .filter({ hasText: 'im locked in' })
-            .filter({ hasText: '2'})
+            .filter({ hasText: '2' })
             .locator('button')
             .click();
     })
-
+    test('dark mode toggle', async ({ page }) => {
+        await page.goto('http://localhost:4200/');
+        const icon = page.locator('button mat-icon');
+        await icon.click();
+        await expect(page.locator('body')).toHaveClass('dark-theme');
+    })
 });
