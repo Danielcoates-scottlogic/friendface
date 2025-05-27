@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-
+//auth expires after 30 mins
 test('login and save storage', async ({ page }) => {
     await page.goto('http://localhost:4200/');
 
