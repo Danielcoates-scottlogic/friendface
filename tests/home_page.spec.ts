@@ -28,7 +28,7 @@ base.describe('Public tests', () => {
 });
 
 base.describe('Authenticated tests', () => {
-  const test = base.extend({ storageState: 'storage/auth.json' });
+  const test = base.extend({ storageState: 'storage/dan.json' });
 
   test('Access protected home page', async ({ page }) => {
     await page.goto('http://localhost:4200/pages/home');
@@ -47,24 +47,44 @@ base.describe('Authenticated tests', () => {
     await page.getByText('Logout').click();
     await expect(page).toHaveURL('http://localhost:4200/pages/create-account');
   });
-  test('User can like and unlike posts', async ({ page }) => {
+  test('User can like posts', async ({ page }) => {
     await page.goto('http://localhost:4200/pages/home');
-    await page
-      .locator('.post')
-      .filter({ hasText: 'joe' })
-      .filter({ hasText: 'im locked in' })
-      .filter({ hasText: '1' })
-      .locator('button')
-      .click();
 
-    await page
+    const post = await page
       .locator('.post')
       .filter({ hasText: 'joe' })
-      .filter({ hasText: 'im locked in' })
-      .filter({ hasText: '2' })
-      .locator('button')
-      .click();
-  });
+      .filter({ hasText: 'im locked in' });
+
+    const likeCountLocator = post.locator('.likes');
+    const likeButton = post.locator('button');
+
+    const initialText = await likeCountLocator.innerText();
+    const initialCount = parseInt(initialText.replace(/\D+/g, ''));
+    console.log(initialCount);
+
+    await likeButton.click();
+
+    await expect(likeCountLocator).toHaveText(`Likes ${initialCount + 1}`);
+  }); // breaks due to same user being used for all 3 browsers
+  test('User can unlike posts', async ({ page }) => {
+    await page.goto('http://localhost:4200/pages/home');
+
+    const post = await page
+      .locator('.post')
+      .filter({ hasText: 'joe' })
+      .filter({ hasText: 'im locked in' });
+
+    const likeCountLocator = post.locator('.likes');
+    const likeButton = post.locator('button');
+
+    const initialText = await likeCountLocator.innerText();
+    const initialCount = parseInt(initialText.replace(/\D+/g, ''));
+    console.log(initialCount);
+
+    await likeButton.click();
+
+    await expect(likeCountLocator).toHaveText(`Likes ${initialCount - 1}`);
+  }); // breaks due to same user being used for all 3 browsers
   test('dark mode toggle', async ({ page }) => {
     await page.goto('http://localhost:4200/');
     const icon = page.locator('button mat-icon');

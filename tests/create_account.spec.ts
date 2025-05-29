@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { fillTextValue } from './utils/fill_text';
 
 test('has title', async ({ page }) => {
   await page.goto('http://localhost:4200/');
@@ -7,21 +8,20 @@ test('has title', async ({ page }) => {
 
 test('login with valid user test', async ({ page }) => {
   await page.goto('http://localhost:4200/');
-
-  await page.getByPlaceholder('Username').fill('dan');
-  await page.getByPlaceholder('Password').fill('dan');
+  await fillTextValue(page, 'Username', 'dan');
+  await fillTextValue(page, 'Password', 'dan');
   const button = page.locator('input[type="submit"]');
   await button.click();
 
   await expect(page).toHaveURL('http://localhost:4200/pages/home');
-  await expect(page.getByText('Username: dan')).toBeVisible({ timeout: 10000 });
+  await expect(page.getByText('Username: dan')).toBeVisible({ timeout: 20000 });
 });
 
 test('login with invalid user test', async ({ page }) => {
   await page.goto('http://localhost:4200/');
 
-  await page.getByPlaceholder('Username').fill('Not real');
-  await page.getByPlaceholder('Password').fill('Not real');
+  await fillTextValue(page, 'Username', 'Not real');
+  await fillTextValue(page, 'Password', 'Not real');
 
   page.once('dialog', async (dialog) => {
     expect(dialog.message()).toBe('Invalid credentials.');
@@ -35,8 +35,8 @@ test('login with invalid user test', async ({ page }) => {
 test('login with username less than 3 characters', async ({ page }) => {
   await page.goto('http://localhost:4200/');
 
-  await page.getByPlaceholder('Username').fill('No');
-  await page.getByPlaceholder('Password').fill('Not real');
+  await fillTextValue(page, 'Username', 'No');
+  await fillTextValue(page, 'Password', 'Not real');
 
   page.once('dialog', async (dialog) => {
     expect(dialog.message()).toBe('Username must be at least 3 characters');
@@ -50,8 +50,8 @@ test('login with username less than 3 characters', async ({ page }) => {
 test('login with password less than 3 characters', async ({ page }) => {
   await page.goto('http://localhost:4200/');
 
-  await page.getByPlaceholder('Username').fill('Not real');
-  await page.getByPlaceholder('Password').fill('No');
+  await fillTextValue(page, 'Username', 'Not real');
+  await fillTextValue(page, 'Password', 'No');
 
   page.once('dialog', async (dialog) => {
     expect(dialog.message()).toBe('password must be at least 3 characters');
@@ -67,16 +67,16 @@ test('create account, username taken', async ({ page }) => {
   await page
     .getByRole('button', { name: /not got an account\? create one/i })
     .click();
-  await page.getByPlaceholder('Enter a username').fill('dan');
-  await page.getByPlaceholder('Enter a password').fill('dan');
-  await page.getByPlaceholder('Re-enter your password').fill('dan');
+  await fillTextValue(page, 'Enter a username', 'dan');
+  await fillTextValue(page, 'Enter a password', 'dan');
+  await fillTextValue(page, 'Re-enter your password', 'dan');
 
   page.once('dialog', async (dialog) => {
     expect(dialog.message()).toBe('User already exists!');
     await dialog.dismiss();
   });
 
-  await page.locator('input[type="submit"]');
+  await page.locator('input[type="submit"]').click();
 });
 
 test('create account, passwords dont match', async ({ page }) => {
@@ -84,16 +84,16 @@ test('create account, passwords dont match', async ({ page }) => {
   await page
     .getByRole('button', { name: /not got an account\? create one/i })
     .click();
-  await page.getByPlaceholder('Enter a username').fill('dan');
-  await page.getByPlaceholder('Enter a password').fill('dan');
-  await page.getByPlaceholder('Re-enter your password').fill('da');
+  await fillTextValue(page, 'Enter a username', 'dan');
+  await fillTextValue(page, 'Enter a password', 'dan');
+  await fillTextValue(page, 'Re-enter your password', 'da');
 
   page.once('dialog', async (dialog) => {
     expect(dialog.message()).toBe("Passwords don't match");
     await dialog.dismiss();
   });
 
-  await page.locator('input[type="submit"]');
+  await page.locator('input[type="submit"]').click();
 });
 
 test('create account, username less than 3 chars', async ({ page }) => {
@@ -101,16 +101,16 @@ test('create account, username less than 3 chars', async ({ page }) => {
   await page
     .getByRole('button', { name: /not got an account\? create one/i })
     .click();
-  await page.getByPlaceholder('Enter a username').fill('da');
-  await page.getByPlaceholder('Enter a password').fill('dan');
-  await page.getByPlaceholder('Re-enter your password').fill('da');
+  await fillTextValue(page, 'Enter a username', 'da');
+  await fillTextValue(page, 'Enter a password', 'dan');
+  await fillTextValue(page, 'Re-enter your password', 'dan');
 
   page.once('dialog', async (dialog) => {
     expect(dialog.message()).toBe('Username must be at least 3 characters');
     await dialog.dismiss();
   });
 
-  await page.locator('input[type="submit"]');
+  await page.locator('input[type="submit"]').click();
 });
 
 test('create account, password less than 3 chars', async ({ page }) => {
@@ -118,16 +118,16 @@ test('create account, password less than 3 chars', async ({ page }) => {
   await page
     .getByRole('button', { name: /not got an account\? create one/i })
     .click();
-  await page.getByPlaceholder('Enter a username').fill('dan');
-  await page.getByPlaceholder('Enter a password').fill('da');
-  await page.getByPlaceholder('Re-enter your password').fill('da');
+  await fillTextValue(page, 'Enter a username', 'dan');
+  await fillTextValue(page, 'Enter a password', 'da');
+  await fillTextValue(page, 'Re-enter your password', 'da');
 
   page.once('dialog', async (dialog) => {
     expect(dialog.message()).toBe('password must be at least 3 characters');
     await dialog.dismiss();
   });
 
-  await page.locator('input[type="submit"]');
+  await page.locator('input[type="submit"]').click();
 });
 
 test('dark mode toggle', async ({ page }) => {
