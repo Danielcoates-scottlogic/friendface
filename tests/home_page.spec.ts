@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test';
+import test, { test as base, expect } from '@playwright/test';
 
 base.describe('Public tests', () => {
   const test = base.extend({ storageState: undefined });
@@ -47,6 +47,17 @@ base.describe('Authenticated tests', () => {
     await page.getByText('Logout').click();
     await expect(page).toHaveURL('http://localhost:4200/pages/create-account');
   });
+  test('dark mode toggle', async ({ page }) => {
+    await page.goto('http://localhost:4200/');
+    const icon = page.locator('button mat-icon');
+    await icon.click();
+    await expect(page.locator('body')).toHaveClass('dark-theme');
+  });
+});
+
+base.describe('like tests', () => {
+  //const test = base.extend({ storageState: 'storage/dan.json' });
+  base.describe.configure({ mode: 'serial' });
   test('User can like posts', async ({ page }) => {
     await page.goto('http://localhost:4200/pages/home');
 
@@ -85,10 +96,4 @@ base.describe('Authenticated tests', () => {
 
     await expect(likeCountLocator).toHaveText(`Likes ${initialCount - 1}`);
   }); // breaks due to same user being used for all 3 browsers
-  test('dark mode toggle', async ({ page }) => {
-    await page.goto('http://localhost:4200/');
-    const icon = page.locator('button mat-icon');
-    await icon.click();
-    await expect(page.locator('body')).toHaveClass('dark-theme');
-  });
 });
